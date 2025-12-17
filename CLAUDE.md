@@ -76,7 +76,7 @@ Must be 3.8 or higher.
 
 1. **Install dependencies:**
    ```bash
-   cd "C:\Users\thesh\Desktop\tasty api"
+   cd "C:\Users\user\Desktop\tasty"
    pip install -r requirements.txt
    ```
 
@@ -100,9 +100,9 @@ Must be 3.8 or higher.
 
    **Example:**
    ```
-   CLIENT_ID=your_client_id_here
-   CLIENT_SECRET=8f2e9d3c1b4a5e6f7g8h9i0j1k2l3m4n
-   REFRESH_TOKEN=dGFzdHl0cmFkZS1yZWZyZXNoLXRva2Vu...
+   CLIENT_ID=upfjfhdudjfudufuf.....
+   CLIENT_SECRET=kfugucud.......
+   REFRESH_TOKEN=dGFzdHljcududva2Vu...
    ```
 
 4. **Test authentication:**
@@ -400,7 +400,7 @@ POST https://api.tastytrade.com/oauth/token
 
 # Response
 {
-  "access_token": "eykluhnci...........",
+  "access_token": "eyklgtdjci...........",
   "expires_in": 900  // 15 minutes
 }
 ```
@@ -413,7 +413,7 @@ GET https://api.tastyworks.com/api-quote-tokens
 
 # Response
 {
-  "token": "dgijnCwx............",
+  "token": "dnfujfvx............",
   "websocket-url": "wss://tasty-openapi-ws.dxfeed.com/realtime"
 }
 ```
@@ -459,7 +459,7 @@ start_simple_dashboard.bat
 
 ### Manual
 ```bash
-cd "C:\Users\thesh\Desktop\tasty api"
+cd "C:\Users\user\Desktop\tasty"
 streamlit run simple_dashboard.py
 ```
 
