@@ -268,8 +268,3 @@ pip install -r requirements.txt
 
 This project is for educational and personal use. Use at your own risk. Not financial advice.
 
----
-
-**Questions?** Check `CLAUDE.md` for comprehensive technical documentation.
-
-**Issues?** Verify credentials in `.env` and test with `python get_access_token.py`
