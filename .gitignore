@@ -1,0 +1,48 @@
+# Environment variables and credentials (NEVER COMMIT THESE!)
+.env
+tasty_token.json
+streamer_token.json
+streamer_token.txt
+
+# Python
+*.pyc
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info
+dist/
+build/
+*.log
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv
+
+# Streamlit
+.streamlit/
+
+# Data files (exclude data, but keep documentation images)
+historical data/
+*.csv
+*.xlsx
+# Note: images/ folder is intentionally NOT excluded (documentation screenshots)
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Testing artifacts
+.pytest_cache/
+.coverage
+htmlcov/
+
+# OS files
+Thumbs.db
+desktop.ini

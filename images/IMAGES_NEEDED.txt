@@ -1,0 +1,22 @@
+IMAGES TO CREATE (11 total)
+================================
+
+Dashboard Screenshots (7):
+├─ dashboard-overview.png
+├─ gex-calls-vs-puts.png
+├─ gex-net-view.png
+├─ gex-absolute-view.png
+├─ iv-skew.png
+├─ volume-oi-analysis.png
+└─ top-strikes-tables.png
+
+Tastytrade Setup Screenshots (4):
+├─ tastytrade-api-settings.png
+├─ api-credentials.png
+├─ oauth-application.png
+└─ refresh-token.png
+
+Optional:
+└─ demo.gif (animated demo)
+
+See IMAGE_GUIDE.md for detailed instructions!
