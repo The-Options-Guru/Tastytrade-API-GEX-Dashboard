@@ -173,10 +173,6 @@ Must be 3.8 or higher.
 - **`.env`** - API credentials (CLIENT_ID, CLIENT_SECRET, REFRESH_TOKEN)
 - **`requirements.txt`** - Python dependencies
 
-### Testing
-- **`test_live_symbols.py`** - Verify symbols work with live Tastytrade data
-- **`test_live_symbols.bat`** - Windows launcher for test script
-
 ### Cached Data (auto-generated)
 - `tasty_token.json` - Cached access token (15min expiry)
 - `streamer_token.txt` - Cached streamer token (longer expiry)
@@ -382,10 +378,6 @@ All option symbols use **dot prefix**:
 - Integer strikes: `680` (not `680.0`)
 - Decimal strikes: `2.5` (for stocks like AAPL)
 
-## Authentication
-
-**Getting API Credentials:** Visit the [Tastytrade Developer Portal](https://developer.tastytrade.com/getting-started/) to create an API application and obtain your CLIENT_ID, CLIENT_SECRET, and REFRESH_TOKEN.
-
 ### OAuth Flow (Refresh Token)
 ```python
 # From .env file
@@ -494,50 +486,7 @@ Opens at: http://localhost:8501
 - Wait 15-20 seconds for full data collection
 - Check symbol exists and has options for that expiration
 
-## Testing
 
-### Verify Symbols Work
-```bash
-test_live_symbols.bat
-```
 
-Tests SPX, NDX, SPY, QQQ with live Tastytrade connection and shows:
-- Underlying Quote (bid/ask/mid)
-- Option Quotes (6/6 expected)
-- Greeks (6/6 expected)
-- Summary/OI (6/6 expected)
 
-### Manual Token Test
-```bash
-python get_access_token.py
-python get_streamer_token.py
-```
 
-## Performance Notes
-
-- **Fetch time**: 15-20 seconds per refresh
-- **Data points**: ~100 option symbols per fetch (50 calls + 50 puts)
-- **Auto-refresh**: Recommended 60+ seconds to avoid rate limits
-- **Weekend data**: Instant (cached), no fresh quotes
-- **Market hours**: Real-time streaming data
-
-## Version History
-
-**December 14, 2024**
-- Switched from background thread to simple fetch approach
-- Added volume and open interest analysis
-- Added three GEX view modes (Calls vs Puts, Net, Absolute)
-- Added top strikes tables with P/C ratio
-- Added custom symbol support
-- Fixed Net GEX calculation (Call - Put, not Call + Put)
-- Fixed strike formatting for integer strikes
-- Added auto-refresh with countdown
-- Default expiration changed to today's date
-- Persisted GEX view selection across refreshes
-
-**Key Improvements:**
-- More reliable (no threading issues)
-- Works on weekends
-- Cleaner UI
-- Better data visualization
-- Support for any symbol, not just presets
