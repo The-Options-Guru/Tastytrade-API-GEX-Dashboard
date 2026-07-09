@@ -187,7 +187,7 @@ User clicks "Fetch Data"
     ↓
 2. Get streamer token for dxFeed
     ↓
-3. Connect to WebSocket: wss://tasty-openapi-ws.dxfeed.com/realtime
+3. Connect to WebSocket URL from api-quote-tokens response (dxlink-url, currently wss://tasty-openapi-dxlink-md-ws.dxfeed.com/realtime)
     ↓
 4. Fetch underlying price (Trade or Quote events)
     ↓
@@ -406,7 +406,7 @@ GET https://api.tastyworks.com/api-quote-tokens
 # Response
 {
   "token": "dnfujfvx............",
-  "websocket-url": "wss://tasty-openapi-ws.dxfeed.com/realtime"
+  "dxlink-url": "wss://tasty-openapi-dxlink-md-ws.dxfeed.com/realtime"
 }
 ```
 

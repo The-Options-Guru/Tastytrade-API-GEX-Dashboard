@@ -10,7 +10,7 @@ from datetime import datetime, timedelta
 from websocket import create_connection
 import pandas as pd
 import plotly.graph_objects as go
-from utils.auth import ensure_streamer_token
+from utils.auth import ensure_streamer_token, get_dxlink_url
 from utils.gex_calculator import GEXCalculator
 
 st.set_page_config(page_title="GEX Dashboard", page_icon="📊", layout="wide")
@@ -25,12 +25,9 @@ PRESET_SYMBOLS = {
     "DIA": {"option_prefix": "DIA", "default_price": 450, "increment": 1},
 }
 
-DXFEED_URL = "wss://tasty-openapi-ws.dxfeed.com/realtime"
-
-
 def connect_websocket(token):
     """Connect to dxFeed WebSocket"""
-    ws = create_connection(DXFEED_URL, timeout=10)
+    ws = create_connection(get_dxlink_url(), timeout=10)
 
     # SETUP
     ws.send(json.dumps({

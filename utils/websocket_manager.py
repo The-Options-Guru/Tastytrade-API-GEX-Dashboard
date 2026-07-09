@@ -8,7 +8,7 @@ import threading
 from datetime import datetime
 from websocket import create_connection, WebSocketConnectionClosedException
 
-DXFEED_URL = "wss://tasty-openapi-ws.dxfeed.com/realtime"
+from utils.auth import get_dxlink_url
 
 
 def get_todays_expiration():
@@ -100,7 +100,7 @@ class OptionsWebSocket:
         """
         try:
             print("🔌 Connecting to TastyTrade dxFeed...")
-            self.ws = create_connection(DXFEED_URL)
+            self.ws = create_connection(get_dxlink_url())
 
             # SETUP message
             self.ws.send(json.dumps({

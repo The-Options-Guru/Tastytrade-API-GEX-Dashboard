@@ -13,6 +13,10 @@ from dotenv import load_dotenv
 TOKEN_FILE = "tasty_token.json"
 STREAMER_TOKEN_FILE = "streamer_token.json"
 
+# Fallback dxLink WebSocket URL (the live URL is returned by the
+# api-quote-tokens endpoint and cached alongside the streamer token)
+DEFAULT_DXLINK_URL = "wss://tasty-openapi-dxlink-md-ws.dxfeed.com/realtime"
+
 # Load environment variables from .env file
 load_dotenv()
 
@@ -177,6 +181,7 @@ def get_streamer_token(access_token=None, force_refresh=False):
 
         if 'data' in result and 'token' in result['data']:
             streamer_token = result['data']['token']
+            dxlink_url = result['data'].get('dxlink-url', DEFAULT_DXLINK_URL)
 
             # Streamer tokens typically last ~24 hours
             # Using conservative 20 hours to ensure refresh before expiry
@@ -186,6 +191,7 @@ def get_streamer_token(access_token=None, force_refresh=False):
             # Save token with expiration
             token_data = {
                 "token": streamer_token,
+                "dxlink_url": dxlink_url,
                 "expires_in": expires_in,
                 "expires_at": expires_at,
                 "fetched_at": time.time()
@@ -205,6 +211,25 @@ def get_streamer_token(access_token=None, force_refresh=False):
             f"Failed to get streamer token. Status code: {response.status_code}\n"
             f"Response: {response.text}"
         )
+
+
+def get_dxlink_url():
+    """
+    Get the dxLink WebSocket URL reported by the Tastytrade API.
+    Uses the URL cached with the streamer token, falling back to the default.
+
+    Returns:
+        str: WebSocket URL for dxFeed/dxLink streaming
+    """
+    if os.path.exists(STREAMER_TOKEN_FILE):
+        try:
+            with open(STREAMER_TOKEN_FILE, 'r') as f:
+                token_data = json.load(f)
+            if token_data.get('dxlink_url'):
+                return token_data['dxlink_url']
+        except Exception:
+            pass
+    return DEFAULT_DXLINK_URL
 
 
 def ensure_streamer_token():
