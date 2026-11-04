@@ -6,6 +6,7 @@ import os
 import sys
 import json
 import time
+from pathlib import Path
 import requests
 from dotenv import load_dotenv
 
@@ -17,8 +18,7 @@ STREAMER_TOKEN_FILE = "streamer_token.json"
 # api-quote-tokens endpoint and cached alongside the streamer token)
 DEFAULT_DXLINK_URL = "wss://tasty-openapi-dxlink-md-ws.dxfeed.com/realtime"
 
-# Load environment variables from .env file
-load_dotenv()
+ENV_FILE = Path(__file__).resolve().parent.parent / ".env"
 
 
 def load_credentials_from_env():
@@ -31,21 +31,30 @@ def load_credentials_from_env():
     Raises:
         ValueError: If any required environment variable is missing
     """
+    # Reload local edits without requiring a dashboard server restart.
+    load_dotenv(ENV_FILE, override=True)
     client_id = os.getenv('CLIENT_ID')
     client_secret = os.getenv('CLIENT_SECRET')
     refresh_token = os.getenv('REFRESH_TOKEN')
 
-    if not client_id or not client_secret or not refresh_token:
-        raise ValueError(
-            "Missing required environment variables. "
-            "Please ensure CLIENT_ID, CLIENT_SECRET, and REFRESH_TOKEN are set in .env file"
-        )
-
-    return {
+    credentials = {
         'client_id': client_id,
         'client_secret': client_secret,
         'refresh_token': refresh_token
     }
+    invalid = [
+        key.upper() for key, value in credentials.items()
+        if not value or value.startswith('your_')
+    ]
+    if invalid:
+        raise ValueError(
+            f"Missing or placeholder credentials: {', '.join(invalid)}. "
+            f"Replace the values in {ENV_FILE} with your production OAuth "
+            "client credentials and grant refresh token, save, then fetch again. "
+            "Do not share these values in chat."
+        )
+
+    return credentials
 
 
 def get_access_token(force_refresh=False):

@@ -4,6 +4,46 @@ A real-time Streamlit dashboard for monitoring options gamma exposure (GEX), vol
 
 **Supports:** SPX, NDX, SPY, QQQ, IWM, DIA, and custom symbols
 
+## Community branch setup
+
+This branch adds daily GEX views (Levels, Strikes, Throughout day, Changes),
+persistent snapshot history, background collectors, and service start/stop scripts.
+The original documentation below is retained; use this setup for the updated
+Windows launchers, which require a project-local `.venv`.
+
+In PowerShell 7, from the repository folder:
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+Copy-Item .env.example .env
+notepad .env
+```
+
+Enter your own Tastytrade credentials locally, then start or stop the services:
+
+```powershell
+pwsh -File .\start_services.ps1
+# When finished:
+pwsh -File .\stop_services.ps1
+```
+
+Open `http://localhost:8501`. Use **Background history settings** to configure
+the recorded symbol and expiry. Daily GEX views follow the dashboard selection;
+Changes defaults to the previous capture. Intraday history starts when recording
+begins, with no backfill. These are Tastytrade/dxFeed-based estimates, not
+Tradytics data or verified dealer positions.
+
+No credentials, token caches, recorded market data, or virtual environment are
+included. Keep `.env`, token files, and `flow_data` private. Keep the application
+bound to localhost rather than exposing it to the public internet.
+
+Run the tests without supplying trading credentials:
+
+```powershell
+.\.venv\Scripts\python.exe -m unittest discover -s tests -q
+```
+
 ![Dashboard Preview](https://img.shields.io/badge/Status-Production%20Ready-brightgreen)
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
 ![Streamlit](https://img.shields.io/badge/Streamlit-Latest-red)

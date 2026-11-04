@@ -23,15 +23,15 @@ def parse_option_symbol(symbol):
               Returns None if symbol doesn't match pattern
     """
     # Match pattern: .PREFIX + YYMMDD + C/P + STRIKE
-    pattern = r'\.([A-Z]+)(\d{6})([CP])(\d+)'
-    match = re.match(pattern, symbol)
+    pattern = r'\.([A-Z]+)(\d{6})([CP])(\d+(?:\.\d+)?)'
+    match = re.fullmatch(pattern, symbol)
 
     if match:
         return {
             'prefix': match.group(1),      # e.g., 'SPXW', 'NDXP'
             'expiration': match.group(2),  # e.g., '251214'
             'type': match.group(3),        # 'C' for call, 'P' for put
-            'strike': int(match.group(4))  # e.g., 6000
+            'strike': float(match.group(4))  # e.g., 6000 or 100.5
         }
 
     return None

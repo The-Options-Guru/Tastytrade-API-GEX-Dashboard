@@ -26,8 +26,10 @@ ENV/
 .streamlit/
 
 # Data files (exclude data, but keep documentation images)
+flow_data/
 historical data/
 *.csv
+!tests/fixtures/cboe_2026.csv
 *.xlsx
 # Note: images/ folder is intentionally NOT excluded (documentation screenshots)
 
